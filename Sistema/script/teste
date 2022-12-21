@@ -9,7 +9,7 @@ ShellBot.username
 menu() {
     local msg
         msg="=×=×=×=×=×=×=×=×=×=×=×=×=×=×=×=×=\n"
-        msg+="<b>-------------REVENDA-------------</b>\n"
+        msg+="<b>-------------VENTAS-------------</b>\n"
         msg+="=×=×=×=×=×=×=×=×=×=×=×=×=×=×=×=×=\n\n"
         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
         --text "$(echo -e $msg)" \
@@ -41,12 +41,12 @@ rm -rf /etc/SSHPlus/userteste/$usuario.sh" > /etc/SSHPlus/userteste/$usuario.sh
     echo ${callback_query_from_id} >> lista
     # - ENVIA O SSH
     ShellBot.sendMessage --chat_id ${callback_query_message_chat_id} \
-    --text "$(echo -e "✅ <b>Criado com sucesso</b> ✅\n\nIP: $(cat /etc/IP)\nUSUARIO: <code>$usuario</code>\nSENHA: <code>$senha</code>\n\n⏳ Expira em: $tempo Horas")" \
+    --text "$(echo -e "✅ <b>Creado con exito</b> ✅\n\nIP: $(cat /etc/IP)\nUSER: <code>$usuario</code>\nPASS: <code>$senha</code>\n\n⏳ Expira en: $tempo Horas")" \
     --parse_mode html
     return 0
   }
   ShellBot.sendMessage --chat_id ${callback_query_message_chat_id} \
-        --text "VOCÊ NÃO TEM PERMISSÃO"
+        --text "NO TIENES PERMISO"
       return 0
 }
 
@@ -61,15 +61,15 @@ validade=$(date '+%C%y/%m/%d' -d " +$data days")
 exp=$(echo -n "$(date '+%d/%m/%C%y' -d " +$data days" )")
 local msg_ex
 msg_ex="━━━━━━━━━━━━━━━━━━━━━━\n"
-msg_ex+="<b>Para criar usuario siga o Exemplo</b>\n"
+msg_ex+="<b>Para crear un usuario siga el ejemplo</b>\n"
 msg_ex+="━━━━━━━━━━━━━━━━━━━━━━\n\n"
-msg_ex+="Exemplo\n"
-msg_ex+="<i>Comando nome senha dias limite</i>\n\n"
+msg_ex+="Ejemplo\n"
+msg_ex+="<i>Comando user pass dias limite</i>\n\n"
 msg_ex+="/criarusuario crazy 123 30 1"
 
 if awk -F : '$3 >= 1000 { print $1 }' /etc/passwd |grep $usuario 1>/dev/null 2>/dev/null; then
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e Usuario $usuario Ja existe !)" \
+	--text "$(echo -e Usuario $usuario ya existe !)" \
 	--parse_mode html
 	break
 fi
@@ -93,7 +93,7 @@ fi
 if [[ -z $data ]]
 	then
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e Erro! Dias vazio ou invalido)" \
+	--text "$(echo -e Erro! Dias vacío o invalido)" \
 	--parse_mode html
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
 	--text "$(echo -e $msg_ex)" \
@@ -103,7 +103,7 @@ fi
 if [[ -z $limite ]]
 	then
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e Erro! Limite vazio ou invalido)" \
+	--text "$(echo -e Erro! Limite vacío o invalido)" \
 	--parse_mode html
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
 	--text "$(echo -e $msg_ex)" \
@@ -121,10 +121,10 @@ if useradd -M -N -s /bin/false $usuario -e $validade > /dev/null 2>/dev/null
             echo "$senha" > /etc/SSHPlus/senha/$usuario
 
         	local sucess
-        	sucess='<b>Conta SSH Criada</b>\n\n'
+        	sucess='<b>Cuenta Creada</b>\n\n'
         	sucess+="<b>IP:</b> $ip\n"
-        	sucess+="<b>Usuario:</b> $usuario\n"
-        	sucess+="<b>Senha:</b> $senha\n"
+        	sucess+="<b>User:</b> $usuario\n"
+        	sucess+="<b>Pass:</b> $senha\n"
         	sucess+="<b>Limite:</b> $limite\n"
         	sucess+="<b>Expira:</b> $exp"
         	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
@@ -133,7 +133,7 @@ if useradd -M -N -s /bin/false $usuario -e $validade > /dev/null 2>/dev/null
         	break
         else
         	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-        	--text "$(echo -e <b>Senha invalida !</b>)" \
+        	--text "$(echo -e <b>Pass invalida !</b>)" \
         	--parse_mode html
         	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
         	--text "$(echo -e $msg_ex)" \
@@ -142,7 +142,7 @@ if useradd -M -N -s /bin/false $usuario -e $validade > /dev/null 2>/dev/null
         fi
 else
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e <b>Erro ao criar conta SSH !</b>)" \
+	--text "$(echo -e <b>Erro al crear Cuenta!</b>)" \
 	--parse_mode html
 	break
 fi	
@@ -156,7 +156,7 @@ criaruser() {
     padrao="1"
     [[ "$limite" == "$_limTotal" ]] && {
       ShellBot.sendMessage --chat_id ${callback_query_message_chat_id} \
-        --text "VOCÊ NÃO TEM SALDO DISPONIVEL"
+        --text "NO TIENES CUPO DISPONIBLE"
       return 0
     }
 
@@ -167,7 +167,7 @@ criaruser() {
     dias='31'
     [[ "$(grep -wc $usuario /etc/passwd)" != '0' ]] && {
     ShellBot.sendMessage --chat_id ${callback_query_message_chat_id} \
-        --text "USUARIO GERADO JÁ FOI CADASTRADO, TENTE NOVAMENTE"
+        --text "USUARIO GENERADO YA EXISTE, INTENTE NUEVAMENTE"
       return 0
     }
     final=$(date "+%Y-%m-%d" -d "+$dias days")
@@ -181,19 +181,19 @@ criaruser() {
     novolimite=$[_limTotal - padrao]
     sed -i "s/LIMITE_REVENDA: $_limTotal/LIMITE_REVENDA: $novolimite/g" $HOME/BOT/revenda/$user/$user >/dev/null 2>&1
     ShellBot.sendMessage --chat_id ${callback_query_message_chat_id} \
-    --text "$(echo -e "✅ <b>Criado com sucesso</b> ✅\n\nIP: $(cat /etc/IP)\nUSUARIO: <code>$usuario</code>\nSENHA: <code>$senha</code>\n\n⏳ Expira em: 31 Dias")" \
+    --text "$(echo -e "✅ <b>Creado con Exito</b> ✅\n\nIP: $(cat /etc/IP)\nUSER: <code>$usuario</code>\nPASS: <code>$senha</code>\n\n⏳ Expira en: 31 Dias")" \
     --parse_mode html
     return 0
   }
   ShellBot.sendMessage --chat_id ${callback_query_message_chat_id} \
-        --text "VOCÊ NÃO TEM PERMISSÃO"
+        --text "NO TIENES PERMISO"
       return 0
 }
 
 #enviar app
 enviarapp() {
     ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} \
-        --text "♻️ ENVIANDO APLICATIVO, AGUARDE..."
+        --text "♻️ ENVIANDO APLICACION, AGUARDE..."
     ShellBot.sendDocument --chat_id ${callback_query_message_chat_id} \
         --document "@/root/CONECT4G.apk" \
     return 0
@@ -209,9 +209,9 @@ infouser () {
 
 unset botao1
 botao1=''
-ShellBot.InlineKeyboardButton --button 'botao1' --line 1 --text '♻️GERAR TESTE♻️' --callback_data 'gerarssh'
-ShellBot.InlineKeyboardButton --button 'botao1' --line 2 --text '♻️GERA SSH MENSAL♻️' --callback_data 'usercriar'
-ShellBot.InlineKeyboardButton --button 'botao1' --line 3 --text '🔰BAIXAR APLICATIVO🔰' --callback_data 'appenviar'
+ShellBot.InlineKeyboardButton --button 'botao1' --line 1 --text '♻️GENERAR TEST♻️' --callback_data 'gerarssh'
+ShellBot.InlineKeyboardButton --button 'botao1' --line 2 --text '♻️CREAR CUENTA MENSAL♻️' --callback_data 'usercriar'
+ShellBot.InlineKeyboardButton --button 'botao1' --line 3 --text '🔰DESCARGAR APLICACION🔰' --callback_data 'appenviar'
 ShellBot.InlineKeyboardButton --button 'botao1' --line 4 --text 'TESTE' --callback_data 'user_criar'
 ShellBot.regHandleFunction --function criarteste --callback_data gerarssh
 ShellBot.regHandleFunction --function enviarapp --callback_data appenviar
